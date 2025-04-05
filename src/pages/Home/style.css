@@ -9,27 +9,27 @@
   max-width: 1000px;
   padding: 20px;
   margin: 0 auto;
-  position: relative; /* importante pra z-index funcionar */
+  position: relative; 
   z-index: 1;
 }
 
 .left-button {
   position: fixed;
-  top: 10px;              /* Bem próximo do topo */
-  left: 0;                /* Cola na extrema esquerda */
+  top: 10px;              
+  left: 0;                
   background: transparent;
   border: none;
-  padding: 0;             /* Remove espaço extra */
+  padding: 0;            
   margin: 0;
   cursor: pointer;
-  z-index: 999;           /* Garante que fique na frente de outros elementos */
+  z-index: 999;           
 }
 
 .left-button img {
   width: 150px;
   height: auto;
   opacity: 0.9;
-  display: block;         /* Garante que padding/margin não adicionem espaçamento */
+  display: block;         
 }
 
 h1 {
@@ -73,12 +73,12 @@ input {
 .clouds{
 position: absolute;
   top: 0;
-  left: 50%; /* move o ponto de ancoragem para o meio */
-  transform: translateX(-50%); /* ajusta pra centralizar de fato */
+  left: 50%;
+  transform: translateX(-50%); 
   object-fit: contain;
   opacity: 0.7;
-  width: 300px; /* opcional, pra limitar o tamanho */
+  width: 300px; 
   height: auto;
-  pointer-events: none; /* evita que a imagem atrapalhe cliques */
+  pointer-events: none; 
 }
 

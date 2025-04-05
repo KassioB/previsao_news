@@ -2,9 +2,9 @@ import './Clima_info5days.css'
 
 
 function Clima_info5days({ weather5days }) {
-    // Verifica se weather5days e weather5days.list existem e são arrays
+    
     if (!weather5days || !Array.isArray(weather5days.list)) {
-        return <p>Carregando previsão...</p>; // Exibe um aviso enquanto os dados não chegam
+        return <p>Carregando previsão...</p>;
     }
 
     let dailyForecast = {}
@@ -33,7 +33,7 @@ function Clima_info5days({ weather5days }) {
                 <div key={forecast.dt} className='weather_item'>
                     <p className='forecast_date'>{convertDate(forecast)}</p>
                     <img src={`http://openweathermap.org/img/wn/${forecast.weather[0].icon}.png`} />
-                    <p>{forecast.weather[0].description}</p>
+                    <p className='forecast_description'>{forecast.weather[0].description}</p>
                     <p>{Math.round(forecast.main.temp_min)}ºC min / {Math.round(forecast.main.temp_max)}ºC max</p>
                 </div>
             ))}

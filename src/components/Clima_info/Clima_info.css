@@ -39,7 +39,7 @@
     gap: 10px;
   }
   
-  /* Responsividade */
+  
   @media (max-width: 1024px) {
     .weather-container {
       width: 70%;
