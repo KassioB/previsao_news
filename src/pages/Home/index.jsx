@@ -1,17 +1,17 @@
 import { useState, useRef } from 'react'
 import './style.css'
-import Lupa from '../../assets/lupa.png'
-import Sol from '../../assets/sun.png'
+import Magnifier from '../../assets/magnifier.png'
+import Sun from '../../assets/sun.png'
 import Clouds from '../../assets/clouds.png'
 import axios from 'axios'
-import Clima_info from '../../components/Clima_info/Clima_info'
-import Clima_info5days from '../../components/Clima_info5days/Clima_info5days'
-import NewsInfo from '../../components/new_info/news_info'
+import WeatherInfo from '../../components/WeatherInfo'
+import WeatherFiveDays from '../../components/WeatherFiveDays'
+import NewsInfo from '../../components/NewsInfo'
 
-function App() {
+function Index() {
   const inputRef = useRef()
   const [weather, setWeather] = useState({})
-  const [weather5days, setWeather5days] = useState()
+  const [weatherFiveDays, setWeatherFiveDays] = useState()
   const [articles, setArticles] = useState([])
 
   async function busca() {
@@ -20,13 +20,13 @@ function App() {
     const cidade = inputRef.current.value
 
     const url = `https://api.openweathermap.org/data/2.5/weather?q=${cidade}&appid=${chave}&lang=pt_br&units=metric`
-    const url5days = `https://api.openweathermap.org/data/2.5/forecast?q=${cidade}&appid=${chave}&lang=pt_br&units=metric`
+    const urlFiveDays = `https://api.openweathermap.org/data/2.5/forecast?q=${cidade}&appid=${chave}&lang=pt_br&units=metric`
 
     try {
       const dataAPI = await axios.get(url)
-      const dataAPI5days = await axios.get(url5days)
+      const dataAPIFiveDays = await axios.get(urlFiveDays)
       setWeather(dataAPI.data)
-      setWeather5days(dataAPI5days.data)
+      setWeatherFiveDays(dataAPIFiveDays.data)
 
       const supportedCountries = ['us', 'br', 'de', 'fr', 'gb', 'ar', 'jp', 'ca', 'au']
       const countryCode = dataAPI.data.sys.country.toLowerCase()
@@ -43,19 +43,19 @@ function App() {
   return (
     <>
       <button className="left-button">
-        <img src={Sol} alt="Sol" />
+        <img src={Sun} alt="Sun" />
       </button>
-      <div className='clouds'>
-        <img src={Clouds} />
+      <div className="clouds overflow-x-hidden">
+        <img src={Clouds} alt="Clouds" className="w-full max-w-full h-auto object-cover" />
       </div>
       <div className='container'>
         <h1>Previsão news</h1>
         <input ref={inputRef} type='text' placeholder='Digite o nome da cidade' />
         <button className='busca' onClick={busca}>
-          <img src={Lupa} />
+          <img src={Magnifier} alt="Buscar" />
         </button>
-        <Clima_info weather={weather} />
-        {weather5days && <Clima_info5days weather5days={weather5days} />}
+        <WeatherInfo weather={weather} />
+        {weatherFiveDays && <WeatherFiveDays weatherFiveDays={weatherFiveDays} />}
         {articles.length > 0 && (
           <div className='news-container'>
             {articles.map((news, index) => (
@@ -74,4 +74,4 @@ function App() {
   )
 }
 
-export default App
+export default Index

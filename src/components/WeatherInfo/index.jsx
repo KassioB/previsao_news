@@ -1,6 +1,6 @@
-import './Clima_info.css'
+import './style.css'
 
-function Clima_info({ weather }) {
+function WeatherInfo({ weather }) {
     if (!weather.name || !weather.weather) {
         return null;
     }
@@ -28,5 +28,5 @@ function Clima_info({ weather }) {
     )
 }
 
-export default Clima_info
+export default WeatherInfo
 

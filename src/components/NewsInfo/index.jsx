@@ -1,4 +1,4 @@
-import './news_info.css'
+import './style.css'
 
 const NewsInfo = ({ title, description, src, url }) => {
   return (

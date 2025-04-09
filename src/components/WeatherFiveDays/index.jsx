@@ -1,10 +1,10 @@
-import './Clima_info5days.css'
+import './style.css'
 
 
-function Clima_info5days({ weather5days }) {
+function WeatherFiveDays({ weather5days }) {
     
     if (!weather5days || !Array.isArray(weather5days.list)) {
-        return <p>Carregando previsão...</p>;
+        return <p>Noticias: </p>;
     }
 
     let dailyForecast = {}
@@ -42,6 +42,6 @@ function Clima_info5days({ weather5days }) {
     )
 }
 
-export default Clima_info5days
+export default WeatherFiveDays
 
 
