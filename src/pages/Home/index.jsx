@@ -1,4 +1,4 @@
-import { useState, useRef } from 'react'
+import { useState, useRef, useEffect } from 'react'
 import Magnifier from '../../assets/magnifier.png'
 import axios from 'axios'
 import WeatherInfo from '../../components/WeatherInfo'
@@ -12,9 +12,10 @@ function Index() {
   const [weatherFiveDays, setWeatherFiveDays] = useState()
   const [articles, setArticles] = useState([])
 
+  const chave = 'ad25ec2c132a33384506161280c70c54'
+  const chavenews = '5f1d84e1c16445cf8b40eadcc748932a'
+
   async function busca() {
-    const chave = 'ad25ec2c132a33384506161280c70c54'
-    const chavenews = '5f1d84e1c16445cf8b40eadcc748932a'
     const cidade = inputRef.current.value
 
     const url = `https://api.openweathermap.org/data/2.5/weather?q=${cidade}&appid=${chave}&lang=pt_br&units=metric`
@@ -37,6 +38,25 @@ function Index() {
       console.error('Erro ao buscar dados:', error)
     }
   }
+  useEffect(() => {
+    navigator.geolocation.getCurrentPosition(async (position) => {
+      const lat = position.coords.latitude
+      const lon = position.coords.longitude
+
+      try {
+        const response = await axios.get(
+          `https://api.openweathermap.org/geo/1.0/reverse?lat=${lat}&lon=${lon}&limit=1&appid=${chave}`
+        )
+        const cidade = response.data[0]?.name
+        if (cidade && inputRef.current) {
+          inputRef.current.value = cidade
+          busca()
+        }
+      } catch (error) {
+        console.error('Erro ao obter cidade pela localização:', error)
+      }
+    })
+  }, [])
 
   return (
     <div className="min-h-screen bg-blue-100 px-4 py-6">
