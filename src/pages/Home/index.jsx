@@ -39,91 +39,77 @@ function Index() {
   }
 
   return (
-    <>
-      <div className="min-h-screen bg-blue-100 px-4 py-6">
-
-        <div className="flex justify-center mb-6">
-          <div className="flex w-full max-w-md">
-            <input
-              ref={inputRef}
-              type="text"
-              placeholder="Digite a cidade"
-              onKeyDown={({ key }) => key === 'Enter' && busca()}
-              className="w-full rounded-l-xl px-4 py-2 bg-white text-gray-800 border border-gray-300 focus:outline-none focus:ring-2 focus:ring-[#5e82f4]"
-            />
-            <button
-              onClick={busca}
-              className="bg-[#5e82f4] px-4 py-2 rounded-r-xl text-white hover:bg-blue-600 transition"
-            >
-              <img src={Magnifier} alt="Buscar" className="w-5 h-5" />
-            </button>
-          </div>
+    <div className="min-h-screen bg-blue-100 px-4 py-6">
+      <div className="flex justify-center mb-6">
+        <div className="flex w-full max-w-md">
+          <input
+            ref={inputRef}
+            type="text"
+            placeholder="Digite a cidade"
+            onKeyDown={({ key }) => key === 'Enter' && busca()}
+            className="w-full rounded-l-xl px-4 py-2 bg-white text-gray-800 border border-gray-300 focus:outline-none focus:ring-2 focus:ring-[#5e82f4]"
+          />
+          <button
+            onClick={busca}
+            className="bg-[#5e82f4] px-4 py-2 rounded-r-xl text-white hover:bg-blue-600 transition"
+          >
+            <img src={Magnifier} alt="Buscar" className="w-5 h-5" />
+          </button>
         </div>
-
-
-        <h1 className="text-3xl font-bold text-center text-[#5e82f4] mb-8">Previsão News</h1>
-
-
-        <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-8">
-
-
-
-          {weather.main && (
-            <div className="bg-white p-6 rounded-2xl shadow text-center flex flex-col items-center">
-              <>
-                <img
-                  src={`http://openweathermap.org/img/wn/${weather.weather?.[0]?.icon}@4x.png`}
-                  alt="Ícone"
-                  className="w-35 h-35"
-                />
-                <h2 className="text-6xl mt-2 mb-3">{Math.round(weather.main.temp)}°C</h2>
-                <p className="capitalize text-gray-600 text-lg ">{weather.weather?.[0]?.description}</p>
-                <hr className="w-60 my-6 border-gray-300 mb-10" />
-                <p className="text-2xl text-gray-500 mb-10">
-                  {new Date().toLocaleDateString('pt-BR', {
-                    weekday: 'long',
-                    day: '2-digit',
-                    month: 'long',
-                    year: 'numeric',
-                  })}
-                </p>
-                <p className="text-4xl text-gray-500 mt-5">
-                  {weather.name}, {weather.sys?.country}
-                </p>
-              </>
-            </div>
-          )}
-
-
-
-          <div className="max-w-7xl mx-auto mt-10">
-            <WeatherInfo weather={weather} />
-          </div>
-        </div>
-
-
-        {weatherFiveDays && (
-          <div className="max-w-7xl mx-auto mt-10">
-            <WeatherFiveDays weatherFiveDays={weatherFiveDays} />
-          </div>
-        )}
-
-
-        {articles.length > 0 && (
-          <div className="max-w-7xl mx-auto mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {articles.map((news, index) => (
-              <NewsInfo
-                key={index}
-                title={news.title}
-                description={news.description}
-                src={news.urlToImage || OnErrorImg}
-                url={news.url}
-              />
-            ))}
-          </div>
-        )}
       </div>
-    </>
+
+      <h1 className="text-3xl sm:text-4xl font-bold text-center text-[#5e82f4] mb-8">Previsão News</h1>
+
+      <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-8">
+        {weather.main && (
+          <div className="bg-white p-6 rounded-2xl shadow text-center flex flex-col items-center">
+            <img
+              src={`http://openweathermap.org/img/wn/${weather.weather?.[0]?.icon}@4x.png`}
+              alt="Ícone"
+              className="w-32 h-32"
+            />
+            <h2 className="text-5xl sm:text-6xl mt-2 mb-3">{Math.round(weather.main.temp)}°C</h2>
+            <p className="capitalize text-gray-600 text-lg ">{weather.weather?.[0]?.description}</p>
+            <hr className="w-60 my-6 border-gray-300 mb-10" />
+            <p className="text-xl sm:text-2xl text-gray-500 mb-10">
+              {new Date().toLocaleDateString('pt-BR', {
+                weekday: 'long',
+                day: '2-digit',
+                month: 'long',
+                year: 'numeric',
+              })}
+            </p>
+            <p className="text-2xl sm:text-4xl text-gray-500 mt-5">
+              {weather.name}, {weather.sys?.country}
+            </p>
+          </div>
+        )}
+
+        <div className="w-full">
+          <WeatherInfo weather={weather} />
+        </div>
+      </div>
+
+      {weatherFiveDays && (
+        <div className="max-w-7xl mx-auto mt-10">
+          <WeatherFiveDays weatherFiveDays={weatherFiveDays} />
+        </div>
+      )}
+
+      {articles.length > 0 && (
+        <div className="max-w-7xl mx-auto mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          {articles.map((news, index) => (
+            <NewsInfo
+              key={index}
+              title={news.title}
+              description={news.description}
+              src={news.urlToImage || OnErrorImg}
+              url={news.url}
+            />
+          ))}
+        </div>
+      )}
+    </div>
   )
 }
 
